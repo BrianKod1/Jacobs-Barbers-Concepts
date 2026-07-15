@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jacobs Barbers — Etobicoke</title>
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#FFFFFF;
+    --paper:#F7F6F3;
+    --paper-2:#EFEDE8;
+    --grey:#8B8983;
+    --charcoal:#262524;
+    --spring:#AFE1BA;
+    --spring-deep:#7FC993;
+    --line: rgba(38,37,36,0.10);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--white);
+    color:var(--charcoal);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+  a{color:inherit; text-decoration:none;}
+  img{display:block; max-width:100%; width:100%; height:100%; object-fit:cover;}
+
+  .eyebrow{
+    font-family:'Inter', sans-serif; text-transform:uppercase; letter-spacing:0.24em;
+    font-size:0.7rem; font-weight:600; color:var(--grey);
+  }
+  h1,h2,h3{ font-family:'Instrument Serif', serif; font-weight:400; line-height:1; color:var(--charcoal); }
+  .wrap{max-width:1240px; margin:0 auto; padding:0 40px;}
+
+  .reveal{ opacity:0; transform:translateY(28px); transition:opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+  .reveal-1{transition-delay:0.05s;} .reveal-2{transition-delay:0.15s;} .reveal-3{transition-delay:0.25s;} .reveal-4{transition-delay:0.35s;}
+
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:24px 44px;
+    background:rgba(255,255,255,0.0);
+    transition:background 0.35s ease, backdrop-filter 0.35s ease, padding 0.35s ease;
+  }
+  header.scrolled{ background:rgba(255,255,255,0.9); backdrop-filter:blur(10px); padding:16px 44px; border-bottom:1px solid var(--line); }
+  header .brand img{ height:38px; width:auto; display:block; filter:brightness(0) invert(1); transition:filter 0.35s ease; }
+  header.scrolled .brand img{ filter:none; }
+  nav{display:flex; gap:38px; align-items:center;}
+  nav a.nav-link{
+    font-size:0.83rem; letter-spacing:0.02em; color:#fff; opacity:0.85; transition:opacity 0.2s ease, color 0.35s ease;
+  }
+  header.scrolled nav a.nav-link{ color:var(--charcoal); opacity:0.68; }
+  nav a.nav-link:hover{opacity:1;}
+  .nav-cta{
+    background:var(--spring); color:var(--charcoal); padding:11px 22px; border-radius:30px;
+    font-size:0.83rem; font-weight:500; transition:background 0.2s ease;
+  }
+  .nav-cta:hover{background:var(--spring-deep);}
+  @media (max-width:900px){ nav a.nav-link{display:none;} }
+
+  .hero{
+    min-height:100svh; position:relative; display:flex; align-items:flex-end;
+    padding-bottom:90px; overflow:hidden;
+    background-image:url('images/hero.jpeg'); background-size:cover; background-position:center;
+  }
+  .hero::before{
+    content:""; position:absolute; inset:0; z-index:1;
+    background:linear-gradient(0deg, rgba(15,13,10,0.78) 0%, rgba(15,13,10,0.28) 46%, rgba(15,13,10,0.15) 100%);
+  }
+  .hero-content{position:relative; z-index:2; width:100%;}
+  .hero-index{ display:flex; align-items:baseline; gap:18px; margin-bottom:18px; }
+  .hero-index .num{font-family:'Instrument Serif', serif; font-style:italic; font-size:1.1rem; color:var(--spring);}
+  .hero-index .rule{width:44px; height:1px; background:rgba(255,255,255,0.5);}
+  .hero-index .loc{font-family:'Inter', sans-serif; text-transform:uppercase; letter-spacing:0.24em; font-size:0.72rem; color:rgba(255,255,255,0.75);}
+  .hero h1{
+    font-size:clamp(4rem, 12vw, 10.5rem); color:#fff; letter-spacing:-0.02em; line-height:0.92;
+    text-shadow:0 4px 40px rgba(0,0,0,0.35);
+  }
+  .hero-bottom-row{ display:flex; justify-content:space-between; align-items:flex-end; gap:40px; margin-top:44px; flex-wrap:wrap; }
+  .hero-address{ color:rgba(255,255,255,0.82); font-size:1.02rem; line-height:1.6; }
+  .hero-actions{display:flex; gap:16px; flex-wrap:wrap; align-items:center;}
+  .btn-primary{
+    background:var(--spring); color:var(--charcoal); padding:16px 34px; border-radius:30px;
+    font-size:0.92rem; font-weight:500; display:inline-block; transition:all 0.2s ease;
+  }
+  .btn-primary:hover{background:var(--spring-deep); transform:translateY(-1px);}
+  .btn-ghost-light{
+    padding:16px 8px; font-size:0.92rem; color:#fff; border-bottom:1px solid rgba(255,255,255,0.7);
+    display:inline-block; transition:opacity 0.2s ease;
+  }
+  .btn-ghost-light:hover{opacity:0.7;}
+
+  .scroll-cue{
+    position:absolute; bottom:28px; right:44px; z-index:2;
+    display:flex; align-items:center; gap:10px; color:rgba(255,255,255,0.7);
+    font-family:'Inter', sans-serif; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.2em;
+  }
+  .scroll-cue .line{width:1px; height:38px; background:rgba(255,255,255,0.5); position:relative; overflow:hidden;}
+  .scroll-cue .line::after{
+    content:""; position:absolute; top:-100%; left:0; width:100%; height:100%; background:var(--spring);
+    animation:scrollDrip 2.2s ease-in-out infinite;
+  }
+  @keyframes scrollDrip{ 0%{top:-100%;} 60%{top:100%;} 100%{top:100%;} }
+
+  @media (max-width:760px){
+    .hero{align-items:flex-end; padding-bottom:60px;}
+    .hero-bottom-row{flex-direction:column; align-items:flex-start;}
+    .scroll-cue{display:none;}
+  }
+
+  .statement{ background:var(--spring); padding:150px 0; position:relative; overflow:hidden; }
+  .statement .wrap{position:relative; z-index:2;}
+  .statement-eyebrow{font-family:'Inter', sans-serif; text-transform:uppercase; letter-spacing:0.24em; font-size:0.72rem; font-weight:600; color:rgba(38,37,36,0.6); margin-bottom:30px;}
+  .statement h2{ font-size:clamp(2.6rem, 6vw, 5.2rem); font-style:italic; line-height:1.12; max-width:1000px; color:var(--charcoal); }
+  .statement-mark{
+    position:absolute; right:-4%; bottom:-18%; font-family:'Instrument Serif', serif; font-style:italic;
+    font-size:32vw; color:rgba(38,37,36,0.06); line-height:1; user-select:none; pointer-events:none;
+  }
+
+  section{padding:150px 0;}
+  .section-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:40px; margin-bottom:80px; flex-wrap:wrap;}
+  .section-head h2{font-size:clamp(2.6rem, 5.2vw, 4.4rem);}
+  .section-head p{color:var(--grey); max-width:340px; font-size:0.98rem; line-height:1.65;}
+
+  .service-row{
+    display:grid; grid-template-columns:80px 1fr auto; align-items:baseline; gap:24px;
+    padding:34px 0; border-top:1px solid var(--line);
+  }
+  .service-row:last-child{border-bottom:1px solid var(--line);}
+  .service-row .idx{font-family:'Instrument Serif', serif; font-style:italic; font-size:1.3rem; color:var(--spring-deep);}
+  .service-row .name{font-family:'Instrument Serif', serif; font-size:2rem;}
+  .service-row .desc{color:var(--grey); font-size:0.92rem; margin-top:6px; max-width:440px;}
+  .service-row .price{font-size:1.1rem; font-weight:500; white-space:nowrap;}
+  .service-row .price.tbd{color:var(--grey); font-style:italic; font-weight:400;}
+  @media (max-width:700px){
+    .service-row{grid-template-columns:50px 1fr; }
+    .service-row .price{grid-column:2; margin-top:10px;}
+  }
+  .placeholder-note{
+    margin-top:40px; padding:20px 24px; border:1px dashed var(--line); border-radius:4px;
+    font-size:0.9rem; color:var(--grey); line-height:1.6;
+  }
+  .placeholder-note b{color:var(--charcoal);}
+
+  .gallery-masonry{ display:grid; grid-template-columns:repeat(6, 1fr); grid-auto-rows:14px; gap:16px; }
+  .g-item{border-radius:6px; overflow:hidden; background:var(--paper-2); border:1px solid var(--line);}
+  .g-item img{ transition:transform 0.6s ease; }
+  .g-item:hover img{transform:scale(1.05);}
+  .g1{grid-column:span 3; grid-row:span 26;}
+  .g2{grid-column:span 2; grid-row:span 18;}
+  .g3{grid-column:span 1; grid-row:span 18;}
+  .g4{grid-column:span 2; grid-row:span 20;}
+  .g5{grid-column:span 2; grid-row:span 14;}
+  .g6{grid-column:span 2; grid-row:span 14;}
+  .g7{grid-column:span 3; grid-row:span 22;}
+  .g8{grid-column:span 3; grid-row:span 22;}
+  @media (max-width:900px){
+    .gallery-masonry{grid-template-columns:repeat(2,1fr);}
+    .g1,.g2,.g3,.g4,.g5,.g6,.g7,.g8{grid-column:span 1; grid-row:span 18;}
+  }
+
+  .about{background:var(--paper);}
+  .about-grid{display:grid; grid-template-columns:0.9fr 1.1fr; gap:90px; align-items:start;}
+  .about-photo-sticky{position:sticky; top:120px; aspect-ratio:4/5; border-radius:8px; overflow:hidden; border:1px solid var(--line);}
+  .about-pull{
+    font-family:'Instrument Serif', serif; font-style:italic; font-size:clamp(1.8rem, 3vw, 2.6rem);
+    line-height:1.35; color:var(--charcoal); margin:38px 0;
+  }
+  .about-pull span{color:var(--spring-deep);}
+  .about-copy p{color:var(--grey); line-height:1.85; font-size:1.04rem; margin-bottom:20px;}
+  @media (max-width:860px){
+    .about-grid{grid-template-columns:1fr; gap:44px;}
+    .about-photo-sticky{position:relative; top:0; aspect-ratio:16/9;}
+  }
+
+  .visit-grid{display:grid; grid-template-columns:0.9fr 1.1fr; gap:90px;}
+  .visit-block{margin-bottom:34px;}
+  .visit-block .eyebrow{margin-bottom:10px; display:block;}
+  .visit-block .value{font-family:'Instrument Serif', serif; font-size:1.6rem;}
+  .visit-block .note{font-size:0.9rem; color:var(--grey); margin-top:8px; line-height:1.6;}
+  .hours-table{width:100%; border-collapse:collapse; margin-top:6px;}
+  .hours-table td{padding:13px 0; border-bottom:1px solid var(--line); font-size:0.96rem;}
+  .hours-table td:first-child{color:var(--grey);}
+  .hours-table td:last-child{text-align:right; color:var(--charcoal); font-weight:500;}
+  .map-frame{border-radius:8px; overflow:hidden; border:1px solid var(--line); aspect-ratio:4/5;}
+  .map-frame iframe{width:100%; height:100%; border:0; filter:grayscale(20%) contrast(0.98);}
+  @media (max-width:860px){ .visit-grid{grid-template-columns:1fr;} }
+
+  .cta-band{ text-align:center; padding:170px 0; background:var(--charcoal); color:#fff; }
+  .cta-band .eyebrow{color:rgba(255,255,255,0.55);}
+  .cta-band h2{font-size:clamp(2.8rem, 7vw, 5.6rem); margin-top:20px; color:#fff;}
+  .cta-band p{color:rgba(255,255,255,0.6); max-width:440px; margin:24px auto 44px; line-height:1.65; font-size:1.02rem;}
+  .contact-links{display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:28px;}
+  .contact-links a{font-size:0.9rem; color:rgba(255,255,255,0.6);}
+  .contact-links a:hover{color:#fff;}
+
+  footer{padding:50px 0; background:var(--charcoal); border-top:1px solid rgba(255,255,255,0.1);}
+  .footer-grid{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;}
+  .footer-grid .brand img{height:26px; width:auto; filter:brightness(0) invert(1);}
+  .footer-links{display:flex; gap:30px; font-size:0.85rem; color:rgba(255,255,255,0.5);}
+  .footer-links a:hover{color:#fff;}
+  .footer-note{font-size:0.78rem; color:rgba(255,255,255,0.35); margin-top:20px; text-align:center;}
+
+  .preview-badge{
+    position:fixed; bottom:20px; right:20px; z-index:200;
+    background:var(--charcoal); color:var(--white);
+    font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; font-weight:500;
+    padding:10px 16px; border-radius:30px; box-shadow:0 8px 24px rgba(0,0,0,0.15);
+  }
+  :focus-visible{outline:2px solid var(--spring-deep); outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="brand"><img src="images/logo-white.png" alt="Jacobs Barbers"></div>
+  <nav>
+    <a class="nav-link" href="#services">Services</a>
+    <a class="nav-link" href="#gallery">Gallery</a>
+    <a class="nav-link" href="#about">About</a>
+    <a class="nav-link" href="#visit">Hours</a>
+    <a class="nav-cta" href="https://jacobsbarbers.mysalononline.com/Booking/?sid=0&guid=930aeb35-9485-4ee4-9786-aefa81fcb1c2" target="_blank" rel="noopener">Book Now</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-content">
+    <div class="hero-index">
+      <span class="num">No. 01</span>
+      <div class="rule"></div>
+      <span class="loc">North Queen Street · Etobicoke</span>
+    </div>
+    <h1>Jacobs<br>Barbers</h1>
+    <div class="hero-bottom-row">
+      <div class="hero-address">170 North Queen Street, Studio 7<br>Etobicoke, ON M9C 1B1</div>
+      <div class="hero-actions">
+        <a class="btn-primary" href="https://jacobsbarbers.mysalononline.com/Booking/?sid=0&guid=930aeb35-9485-4ee4-9786-aefa81fcb1c2" target="_blank" rel="noopener">Book Your Appointment</a>
+        <a class="btn-ghost-light" href="tel:6476883094">Call 647 688 3094</a>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue"><div class="line"></div>Scroll</div>
+</section>
+
+<section class="statement">
+  <div class="statement-mark">"</div>
+  <div class="wrap">
+    <div class="statement-eyebrow reveal">The Philosophy</div>
+    <h2 class="reveal reveal-1">A precise cut, an unhurried visit — every style, from a clean taper to something a little more distinctive.</h2>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Services</span>
+        <h2 style="margin-top:16px;">What's on offer.</h2>
+      </div>
+      <p>All haircuts are $45 flat — no tiers, no surprises at the chair.</p>
+    </div>
+    <div>
+      <div class="service-row reveal reveal-1">
+        <span class="idx">01</span>
+        <div><div class="name">Classic Cut</div><div class="desc">A clean, timeless cut tailored to face shape and hair type.</div></div>
+        <span class="price">$45</span>
+      </div>
+      <div class="service-row reveal reveal-2">
+        <span class="idx">02</span>
+        <div><div class="name">Skin Fade</div><div class="desc">Precision fade blended smoothly from skin to length.</div></div>
+        <span class="price">$45</span>
+      </div>
+      <div class="service-row reveal reveal-3">
+        <span class="idx">03</span>
+        <div><div class="name">Kids Cut</div><div class="desc">Patient, easygoing cuts for younger clients.</div></div>
+        <span class="price">$45</span>
+      </div>
+      <div class="service-row reveal reveal-4">
+        <span class="idx">04</span>
+        <div><div class="name">Beard Trim &amp; Shape</div><div class="desc">Shaped and lined for a sharp, well-kept finish.</div></div>
+        <span class="price tbd">TBD</span>
+      </div>
+      <div class="service-row reveal">
+        <span class="idx">05</span>
+        <div><div class="name">Cut &amp; Beard Combo</div><div class="desc">The full service — haircut and beard work, together.</div></div>
+        <span class="price tbd">TBD</span>
+      </div>
+    </div>
+    <div class="placeholder-note">Haircuts confirmed at a flat $45. Beard trim and combo pricing still marked TBD — send those over and they'll drop straight in.</div>
+  </div>
+</section>
+
+<section id="gallery" style="background:var(--paper);">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Gallery</span>
+        <h2 style="margin-top:16px;">A look at the work.</h2>
+      </div>
+      <p>Every image is a placeholder file inside the <code>images</code> folder — see the guide for how to swap them.</p>
+    </div>
+    <div class="gallery-masonry">
+      <div class="g-item g1 reveal"><img src="images/cut-1.jpeg" alt="Haircut example 1"></div>
+      <div class="g-item g2 reveal reveal-1"><img src="images/cut-2.jpeg" alt="Haircut example 2"></div>
+      <div class="g-item g3 reveal reveal-2"><img src="images/cut-3.jpeg" alt="Haircut example 3"></div>
+      <div class="g-item g4 reveal"><img src="images/cut-4.jpeg" alt="Haircut example 4"></div>
+      <div class="g-item g5 reveal reveal-1"><img src="images/cut-5.jpeg" alt="Haircut example 5"></div>
+      <div class="g-item g6 reveal reveal-2"><img src="images/cut-6.jpeg" alt="Haircut example 6"></div>
+      <div class="g-item g7 reveal"><img src="images/cut-7.jpeg" alt="Haircut example 7"></div>
+      <div class="g-item g8 reveal reveal-1"><img src="images/cut-8.jpeg" alt="Haircut example 8"></div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div class="about-photo-sticky reveal">
+      <img src="images/about-lucyna.jpeg" alt="Lucyna Jacobs, owner of Jacobs Barbers">
+    </div>
+    <div class="about-copy">
+      <span class="eyebrow reveal">About</span>
+      <div class="about-pull reveal reveal-1">"Still cutting. <span>Still listening.</span>"</div>
+      <p class="reveal reveal-2">Lucyna Jacobs started cutting hair at five years old — dolls first, then family and friends brave enough to sit still. What began as a habit became a trade: she trained and certified through the Ontario College of Trades and the Ministry of Training, Colleges, and Universities.</p>
+      <p class="reveal reveal-3">That same care shapes every appointment at the shop today — a small, personal barbering practice built one client at a time.</p>
+    </div>
+  </div>
+</section>
+
+<section id="visit">
+  <div class="wrap visit-grid">
+    <div>
+      <span class="eyebrow">Find The Shop</span>
+      <h2 style="margin:16px 0 40px; font-size:clamp(2.4rem,4.4vw,3.6rem);">North Queen Street</h2>
+
+      <div class="visit-block">
+        <span class="eyebrow">Address</span>
+        <div class="value">170 North Queen Street, Studio 7<br>Etobicoke, ON M9C 1B1</div>
+        <div class="note">Inside JC Salons — four units west of Dollarama, near Sherway Gardens.</div>
+      </div>
+      <div class="visit-block">
+        <span class="eyebrow">Phone</span>
+        <div class="value"><a href="tel:6476883094">647 688 3094</a></div>
+      </div>
+
+      <span class="eyebrow">Hours</span>
+      <table class="hours-table">
+        <tr><td>Monday</td><td>Closed</td></tr>
+        <tr><td>Tuesday</td><td>TBD</td></tr>
+        <tr><td>Wednesday</td><td>TBD</td></tr>
+        <tr><td>Thursday</td><td>TBD</td></tr>
+        <tr><td>Friday</td><td>TBD</td></tr>
+        <tr><td>Saturday</td><td>TBD</td></tr>
+        <tr><td>Sunday</td><td>Closed</td></tr>
+      </table>
+      <div class="placeholder-note">Hours shown as TBD until confirmed — send the current weekly schedule and it'll go straight in.</div>
+    </div>
+    <div class="map-frame">
+      <iframe
+        loading="lazy"
+        src="https://www.google.com/maps?q=170+North+Queen+Street,+Etobicoke,+ON+M9C+1B1&output=embed"
+        title="Map to Jacobs Barbers, 170 North Queen Street, Etobicoke">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band" id="contact">
+  <div class="wrap">
+    <span class="eyebrow">Get In Touch</span>
+    <h2>Let's get you<br>in the chair.</h2>
+    <p>Book online in under a minute, or call the shop directly.</p>
+    <a class="btn-primary" href="https://jacobsbarbers.mysalononline.com/Booking/?sid=0&guid=930aeb35-9485-4ee4-9786-aefa81fcb1c2" target="_blank" rel="noopener">Book Your Appointment</a>
+    <div class="contact-links">
+      <a href="tel:6476883094">647 688 3094</a>
+      <span style="color:rgba(255,255,255,0.3);">·</span>
+      <a href="mailto:info@jacobsbarbers.ca">info@jacobsbarbers.ca</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="brand"><img src="images/logo-white.png" alt="Jacobs Barbers"></div>
+      <div class="footer-links">
+        <a href="tel:6476883094">647 688 3094</a>
+        <a href="https://jacobsbarbers.mysalononline.com/Booking/?sid=0&guid=930aeb35-9485-4ee4-9786-aefa81fcb1c2" target="_blank" rel="noopener">Book Online</a>
+      </div>
+    </div>
+    <div class="footer-note">170 North Queen Street, Studio 7, Etobicoke, ON M9C 1B1</div>
+  </div>
+</footer>
+
+<div class="preview-badge">Concept Preview — Placeholder Content</div>
+
+<script>
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){ entry.target.classList.add('in'); io.unobserve(entry.target); }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
