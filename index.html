@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jacobs Barbers — Website Concepts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#FFFFFF;
+    --paper:#F7F6F3;
+    --paper-2:#EFEDE8;
+    --grey:#8B8983;
+    --charcoal:#262524;
+    --spring:#AFE1BA;
+    --spring-deep:#7FC993;
+    --line: rgba(38,37,36,0.10);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--white);
+    color:var(--charcoal);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:980px; margin:0 auto; padding:0 32px;}
+
+  .eyebrow{
+    font-family:'Inter', sans-serif; text-transform:uppercase; letter-spacing:0.22em;
+    font-size:0.7rem; font-weight:600; color:var(--grey);
+  }
+  h1,h2,h3{ font-family:'Instrument Serif', serif; font-weight:400; color:var(--charcoal); }
+
+  header{ padding:70px 0 60px; text-align:center; }
+  header .eyebrow{ margin-bottom:20px; }
+  header h1{ font-size:clamp(2.6rem, 6vw, 4rem); margin-bottom:18px; letter-spacing:-0.01em;}
+  header h1 em{ font-style:italic; color:var(--spring-deep); }
+  header p{ color:var(--grey); font-size:1.05rem; max-width:520px; margin:0 auto; line-height:1.65; }
+
+  .cards{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:26px;
+    padding-bottom:90px;
+  }
+  .card{
+    border:1px solid var(--line); border-radius:10px; overflow:hidden;
+    background:var(--white); display:flex; flex-direction:column;
+    transition:transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card:hover{ transform:translateY(-4px); box-shadow:0 20px 40px rgba(38,37,36,0.08); }
+  .card-top{
+    background:var(--paper); padding:40px 30px 30px; border-bottom:1px solid var(--line);
+  }
+  .card-num{ font-family:'Instrument Serif', serif; font-style:italic; font-size:1.1rem; color:var(--spring-deep); margin-bottom:14px; display:block;}
+  .card-top h2{ font-size:1.9rem; margin-bottom:0; }
+  .card-body{ padding:26px 30px 32px; flex:1; display:flex; flex-direction:column;}
+  .card-body p{ color:var(--grey); font-size:0.95rem; line-height:1.7; flex:1; margin-bottom:26px;}
+  .card-btn{
+    background:var(--spring); color:var(--charcoal); text-align:center; padding:14px 20px;
+    border-radius:30px; font-size:0.88rem; font-weight:500; transition:background 0.2s ease;
+  }
+  .card-btn:hover{ background:var(--spring-deep); }
+  @media (max-width:820px){ .cards{grid-template-columns:1fr; padding-bottom:60px;} }
+
+  footer{
+    border-top:1px solid var(--line); padding:44px 0; text-align:center;
+  }
+  footer p{ color:var(--grey); font-size:0.85rem; line-height:1.7; }
+  footer a{ color:var(--charcoal); border-bottom:1px solid var(--line); }
+  footer a:hover{ border-bottom-color:var(--charcoal); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">Jacobs Barbers · Etobicoke</div>
+    <h1>Three directions,<br>one <em>fresh</em> look.</h1>
+    <p>A first look at three possible directions for the new site — same real details throughout (address, pricing, booking), each with its own personality.</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="cards">
+    <div class="card">
+      <div class="card-top">
+        <span class="card-num">Version 1</span>
+        <h2>Live / Reference</h2>
+      </div>
+      <div class="card-body">
+        <p>The reference direction — an elegant, editorial serif throughout, with the logo and address set directly over a full-width photo at the top of the page.</p>
+        <a class="card-btn" href="v1-live/">View This Version →</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span class="card-num">Version 2</span>
+        <h2>Classic</h2>
+      </div>
+      <div class="card-body">
+        <p>The same layout as Version 1, with a softer, more traditional typeface pairing — a gentler, more familiar feel.</p>
+        <a class="card-btn" href="v2-classic/">View This Version →</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span class="card-num">Version 3</span>
+        <h2>Concept</h2>
+      </div>
+      <div class="card-body">
+        <p>The boldest direction — oversized type, a bold spring-green statement moment, and a gallery with real personality.</p>
+        <a class="card-btn" href="v3-concept/">View This Version →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Built for Jacobs Barbers, 170 North Queen Street, Etobicoke.<br>
+    Questions or a preferred direction? Just reply and we'll take it from there.</p>
+  </div>
+</footer>
+
+</body>
+</html>
